@@ -1,8 +1,0 @@
-{
-  "description": "A Strapi application",
-  "display": "standalone",
-  "lang": "en",
-  "name": "admin-panel",
-  "short_name": "admin-panel",
-  "start_url": "/?utm_source=web_app_manifest"
-}
