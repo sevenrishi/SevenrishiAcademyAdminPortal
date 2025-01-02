@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "topics",
+  "info": {
+    "singularName": "topic",
+    "pluralName": "topics",
+    "displayName": "Topic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "TopicName": {
+      "type": "string"
+    },
+    "Question": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::question.question",
+      "mappedBy": "Topic"
+    },
+    "Subject": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subject.subject",
+      "inversedBy": "Topic"
+    }
+  }
+}

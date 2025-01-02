@@ -369,6 +369,42 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
+  collectionName: 'questions';
+  info: {
+    displayName: 'Question';
+    pluralName: 'questions';
+    singularName: 'question';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Answer: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text;
+    Elaborate: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::question.question'
+    > &
+      Schema.Attribute.Private;
+    Option1: Schema.Attribute.String;
+    Option2: Schema.Attribute.String;
+    Option3: Schema.Attribute.String;
+    Option4: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    QuestionName: Schema.Attribute.String;
+    Topic: Schema.Attribute.Relation<'manyToOne', 'api::topic.topic'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSliderSlider extends Struct.CollectionTypeSchema {
   collectionName: 'sliders';
   info: {
@@ -394,6 +430,64 @@ export interface ApiSliderSlider extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSubjectSubject extends Struct.CollectionTypeSchema {
+  collectionName: 'subjects';
+  info: {
+    description: '';
+    displayName: 'Subject';
+    pluralName: 'subjects';
+    singularName: 'subject';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subject.subject'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    SubjectName: Schema.Attribute.String;
+    Topic: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTopicTopic extends Struct.CollectionTypeSchema {
+  collectionName: 'topics';
+  info: {
+    description: '';
+    displayName: 'Topic';
+    pluralName: 'topics';
+    singularName: 'topic';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::topic.topic'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Question: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
+    Subject: Schema.Attribute.Relation<'manyToOne', 'api::subject.subject'>;
+    TopicName: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -941,7 +1035,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::question.question': ApiQuestionQuestion;
       'api::slider.slider': ApiSliderSlider;
+      'api::subject.subject': ApiSubjectSubject;
+      'api::topic.topic': ApiTopicTopic;
       'api::video-course.video-course': ApiVideoCourseVideoCourse;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
